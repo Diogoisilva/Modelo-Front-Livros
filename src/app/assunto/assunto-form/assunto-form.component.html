@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="card">
+      <!-- <div class="card-header">
+        <h2 class="text-center mb-4">{{ assunto.codAssunto ? 'Editar Assunto' : 'Novo Assunto' }}</h2>
+      </div> -->
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" #assuntoForm="ngForm">
+          <div class="form-group">
+            <label for="descricao">Descrição</label>
+            <input type="text" id="descricao" [(ngModel)]="assunto.descricao" name="descricao" class="form-control" required />
+          </div>
+          <br>
+          <br>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary" [disabled]="!assuntoForm.form.valid"><i class="bi bi-save"></i> {{ assunto.codAssunto ? 'Salvar' : 'Criar' }}</button>
+            <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="bi bi-x-circle"></i> Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

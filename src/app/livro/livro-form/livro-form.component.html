@@ -1,0 +1,58 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-center mb-4">{{ livro.codl ? 'Editar Livro' : 'Novo Livro' }}</h2>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" #livroForm="ngForm">
+          <div class="form-group">
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" [(ngModel)]="livro.titulo" name="titulo" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="editora">Editora</label>
+            <input type="text" id="editora" [(ngModel)]="livro.editora" name="editora" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="edicao">Edição</label>
+            <input type="text" id="edicao" [(ngModel)]="livro.edicao" name="edicao" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="anoPublicacao">Ano</label>
+            <input type="text" id="anoPublicacao" [(ngModel)]="livro.anoPublicacao" name="anoPublicacao" class="form-control" required appAnoValidation />
+          </div>
+          <div class="form-group">
+            <label for="preco">Preço</label>
+            <input type="text" id="preco" [(ngModel)]="livro.preco" name="preco" class="form-control" required appPrecoMask />
+          </div>
+          <div class="form-group">
+            <label for="formaCompra">Forma</label>
+            <input type="text" id="formaCompra" [(ngModel)]="livro.formaCompra" name="formaCompra" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="autor">Autor</label>
+            <ng-select 
+              [(ngModel)]="livro.autor"
+              [items]="autores"
+              bindLabel="nome"
+              bindValue="id"
+              [searchable]="true"
+              name="autor"
+              class="form-control">
+            </ng-select>
+          </div>
+          <div class="form-group">
+            <label for="descricaoAssunto">Assunto</label>
+            <input type="text" id="descricaoAssunto" [(ngModel)]="livro.assunto.descricao" name="descricaoAssunto" class="form-control" required />
+          </div>
+          <br>
+          <br>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary" [disabled]="!livroForm.form.valid"><i class="bi bi-save"></i> {{ livro.codl ? 'Salvar' : 'Criar' }}</button>
+            <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="bi bi-x-circle"></i> Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
