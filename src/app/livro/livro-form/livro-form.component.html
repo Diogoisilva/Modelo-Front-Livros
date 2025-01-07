@@ -1,58 +1,99 @@
 <div class="container mt-5">
-    <div class="card">
-      <div class="card-header">
-        <h2 class="text-center mb-4">{{ livro.codl ? 'Editar Livro' : 'Novo Livro' }}</h2>
-      </div>
-      <div class="card-body">
-        <form (ngSubmit)="onSubmit()" #livroForm="ngForm">
-          <div class="form-group">
-            <label for="titulo">Título</label>
-            <input type="text" id="titulo" [(ngModel)]="livro.titulo" name="titulo" class="form-control" required />
+  <div class="card">
+    <div class="card-header">
+      <h2 class="text-center mb-4">{{ livro.codL ? 'Editar Livro' : 'Novo Livro' }}</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="livroForm" (ngSubmit)="onSubmit()">
+        <input type="hidden" formControlName="codL" />
+        
+
+        <div class="form-group">
+          <label for="titulo">Título</label>
+          <input type="text" id="titulo" formControlName="titulo" class="form-control" />
+          <div *ngIf="livroForm.get('titulo')?.invalid && livroForm.get('titulo')?.touched" class="text-danger">
+            O título é obrigatório.
           </div>
-          <div class="form-group">
-            <label for="editora">Editora</label>
-            <input type="text" id="editora" [(ngModel)]="livro.editora" name="editora" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+          <label for="editora">Editora</label>
+          <input type="text" id="editora" formControlName="editora" class="form-control" />
+          <div *ngIf="livroForm.get('editora')?.invalid && livroForm.get('editora')?.touched" class="text-danger">
+            A editora é obrigatória.
           </div>
-          <div class="form-group">
-            <label for="edicao">Edição</label>
-            <input type="text" id="edicao" [(ngModel)]="livro.edicao" name="edicao" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+          <label for="edicao">Edição</label>
+          <input type="text" id="edicao" formControlName="edicao" class="form-control" />
+          <div *ngIf="livroForm.get('edicao')?.invalid && livroForm.get('edicao')?.touched" class="text-danger">
+            A edição é obrigatória.
           </div>
-          <div class="form-group">
-            <label for="anoPublicacao">Ano</label>
-            <input type="text" id="anoPublicacao" [(ngModel)]="livro.anoPublicacao" name="anoPublicacao" class="form-control" required appAnoValidation />
+        </div>
+
+        <!-- <div class="form-group">
+          <label for="anoPublicacao">Ano</label>
+          <input type="text" id="anoPublicacao" [(ngModel)]="livro.anoPublicacao" name="anoPublicacao"
+            class="form-control" required appAnoValidation />
+        </div>
+        <div class="form-group">
+          <label for="preco">Preço</label>
+          <input type="text" id="preco" [(ngModel)]="livro.preco" name="preco" class="form-control" required
+            appPrecoMask />
+        </div> -->
+
+        <div class="form-group">
+          <label for="anoPublicacao">Ano</label>
+          <input type="text" id="anoPublicacao" formControlName="anoPublicacao" class="form-control" appAnoValidation/>
+          <div *ngIf="livroForm.get('anoPublicacao')?.invalid && livroForm.get('anoPublicacao')?.touched"
+            class="text-danger">
+            <small *ngIf="livroForm.get('anoPublicacao')?.errors?.['required']">O ano de publicação é obrigatório.</small>
+            <small *ngIf="livroForm.get('anoPublicacao')?.errors?.['pattern']">Insira um ano válido (ex: 2025).</small>
           </div>
-          <div class="form-group">
-            <label for="preco">Preço</label>
-            <input type="text" id="preco" [(ngModel)]="livro.preco" name="preco" class="form-control" required appPrecoMask />
+        </div>
+        
+        <div class="form-group">
+          <label for="preco">Preço</label>
+          <input type="text" id="preco" formControlName="preco" class="form-control" appPrecoMask/>
+          <div *ngIf="livroForm.get('preco')?.invalid && livroForm.get('preco')?.touched" class="text-danger" >
+            <small *ngIf="livroForm.get('preco')?.errors?.['required']">O preço é obrigatório.</small>
           </div>
-          <div class="form-group">
-            <label for="formaCompra">Forma</label>
-            <input type="text" id="formaCompra" [(ngModel)]="livro.formaCompra" name="formaCompra" class="form-control" required />
+        </div>
+        
+
+        <div class="form-group">
+          <label for="formaCompra">Forma</label>
+          <input type="text" id="formaCompra" formControlName="formaCompra" class="form-control" />
+          <div *ngIf="livroForm.get('formaCompra')?.invalid && livroForm.get('formaCompra')?.touched"
+            class="text-danger">
+            A forma de compra é obrigatória.
           </div>
-          <div class="form-group">
-            <label for="autor">Autor</label>
-            <ng-select 
-              [(ngModel)]="livro.autor"
-              [items]="autores"
-              bindLabel="nome"
-              bindValue="id"
-              [searchable]="true"
-              name="autor"
-              class="form-control">
-            </ng-select>
+        </div>
+
+        <div class="form-group">
+          <label for="autor">Autor</label>
+          <ng-select formControlName="autor" [items]="autores" bindLabel="nome" bindValue="codAu"></ng-select>
+          <div *ngIf="livroForm.get('autor')?.invalid && livroForm.get('autor')?.touched" class="text-danger">
+            O autor é obrigatório.
           </div>
-          <div class="form-group">
-            <label for="descricaoAssunto">Assunto</label>
-            <input type="text" id="descricaoAssunto" [(ngModel)]="livro.assunto.descricao" name="descricaoAssunto" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+          <label for="assunto">Assunto</label>
+          <ng-select formControlName="assunto" [items]="assuntos" bindLabel="descricao" bindValue="codAssunto"></ng-select>
+          <div *ngIf="livroForm.get('assunto')?.invalid && livroForm.get('assunto')?.touched" class="text-danger">
+            O assunto é obrigatório.
           </div>
-          <br>
-          <br>
-          <div class="d-flex justify-content-between">
-            <button type="submit" class="btn btn-primary" [disabled]="!livroForm.form.valid"><i class="bi bi-save"></i> {{ livro.codl ? 'Salvar' : 'Criar' }}</button>
-            <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="bi bi-x-circle"></i> Cancelar</button>
-          </div>
-        </form>
-      </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary" ><i class="bi bi-save"></i>
+            {{ livro.codL ? 'Salvar' : 'Criar' }}</button>
+          <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="bi bi-x-circle"></i>
+            Cancelar</button>
+        </div>
+      </form>
     </div>
   </div>
-  
+</div>

@@ -20,18 +20,29 @@ export class LivroListComponent implements OnInit {
   }
 
   loadLivros(): void {
-    this.livroService.getLivros().subscribe((data) => {
-      this.livros = data;
-    }, (error) => {
-      console.error('Erro ao carregar a lista de livros:', error);
-    });
+    this.livroService.getLivros().subscribe(
+      (data) => {
+        console.log('Dados recebidos:', data); // Log para depuração
+        this.livros = data;
+      },
+      (error) => {
+        console.error('Erro ao carregar a lista de livros:', error);
+      }
+    );
   }
 
-  deleteLivro(codl: number): void {
-    this.livroService.deleteLivro(codl).subscribe(() => {
-      this.livros = this.livros.filter(livro => livro.codl !== codl);
-    }, (error) => {
-      console.error('Erro ao deletar o livro:', error);
-    });
+  deleteLivro(codL: number): void {
+    if (confirm('Tem certeza que deseja excluir este livro?')) {
+      this.livroService.deleteLivro(codL).subscribe(
+        () => {
+          alert('Livro excluído com sucesso!');
+          this.loadLivros(); // Recarrega a lista após a exclusão
+        },
+        (error) => {
+          console.error('Erro ao excluir o livro:', error);
+          alert('Erro ao excluir o livro: ' + error.message);
+        }
+      );
+    }
   }
 }

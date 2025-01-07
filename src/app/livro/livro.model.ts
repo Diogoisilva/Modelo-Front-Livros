@@ -1,20 +1,21 @@
-export interface Assunto {
-  descricao: string;
+export interface Autor {
+  codAu: number;
+  nome?: string; // Torna o nome opcional
 }
 
-export interface Autor {
-  id: number;
-  nome: string;
+export interface Assunto {
+  codAssunto: number;
+  descricao?: string; // Torna a descrição opcional
 }
 
 export interface Livro {
-  codl: number | null;
+  codL: number ;
   titulo: string;
   editora: string;
   edicao: string;
   anoPublicacao: string;
-  preco: string;
+  preco: number;
   formaCompra: string;
   autor: Autor | null;
-  assunto: Assunto; // Adicionando o campo assunto
+  assunto: Assunto | null;
 }

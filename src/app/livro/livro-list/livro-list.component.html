@@ -1,36 +1,43 @@
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Livros</h2>
-    <a class="btn btn-primary mb-3" routerLink="/livros/novo"><i class="bi bi-plus-circle"></i> Novo Livro</a>
-    <table class="table table-striped table-bordered table table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <th>ID</th>
-          <th>Título</th>
-          <th>Editora</th>
-          <th>Edição</th>
-          <th>Ano</th>
-          <th>Preço</th>
-          <th>Forma</th>
-          <th >Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let livro of livros">
-          <td>{{ livro.codl }}</td>
-          <td>{{ livro.titulo }}</td>
-          <td>{{ livro.editora }}</td>
-          <td>{{ livro.edicao }}</td>
-          <td>{{ livro.anoPublicacao }}</td>
-          <td>{{ livro.preco }}</td>
-          <td>{{ livro.formaCompra }}</td>
-          <td >
-            <div class="btn-group">
-              <a class="btn btn-warning btn-sm" [routerLink]="['/livros', livro.codl]"><i class="bi bi-pencil"></i> Editar</a>
-              <button class="btn btn-danger btn-sm" (click)="deleteLivro(livro.codl)"><i class="bi bi-trash"></i> Excluir</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="card">
+      <div class="card-header">
+        <h2 class="text-center mb-4">Lista de Livros</h2>
+        <button class="btn btn-success" [routerLink]="['/livro']">Novo Livro</button>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Codl</th>
+              <th>Título</th>
+              <th>Editora</th>
+              <th>Edição</th>
+              <th>Ano</th>
+              <th>Preço</th>
+              <th>Forma</th>
+              <th>Autor</th>
+              <th>Assunto</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let livro of livros">
+              <td>{{ livro.codL }}</td>
+              <td>{{ livro.titulo }}</td>
+              <td>{{ livro.editora }}</td>
+              <td>{{ livro.edicao }}</td>
+              <td>{{ livro.anoPublicacao }}</td>
+              <td>{{ livro.preco | currency: 'BRL' }}</td>
+              <td>{{ livro.formaCompra }}</td>
+              <td>{{ livro.autor?.nome }}</td>
+              <td>{{ livro.assunto?.descricao }}</td>
+              <td>
+                <button class="btn btn-primary btn-sm" [routerLink]="['/livro', livro.codL]">Editar</button>
+                <button class="btn btn-danger btn-sm" (click)="deleteLivro(livro.codL)">Excluir</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  

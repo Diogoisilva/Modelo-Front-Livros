@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Relatório de Livros</h2>
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Código</th>
+          <th>Título</th>
+          <th>Editora</th>
+          <th>Edição</th>
+          <th>Ano de Publicação</th>
+          <th>Preço</th>
+          <th>Forma de Compra</th>
+          <th>Autor</th>
+          <th>Assunto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let livro of relatorioLivros">
+          <td>{{ livro.codL }}</td>
+          <td>{{ livro.titulo }}</td>
+          <td>{{ livro.editora }}</td>
+          <td>{{ livro.edicao }}</td>
+          <td>{{ livro.anoPublicacao }}</td>
+          <td>{{ livro.preco | currency: 'BRL' }}</td>
+          <td>{{ livro.formaCompra }}</td>
+          <td>{{ livro.autorNome }}</td>
+          <td>{{ livro.assuntoDescricao }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
